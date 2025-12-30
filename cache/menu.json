@@ -1,0 +1,516 @@
+{
+  "almoco": [
+    {
+      "dia": 1,
+      "dia_semana": "SEG",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ESCAROLA CENOURA ACELGA REFOGADA MELANCIA PANQUECA DE PTS C/ RICOTA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ESCAROLA",
+          "CENOURA"
+        ],
+        "prato_principal": "Segunda Vegetariana",
+        "opcao_vegetariana": "PANQUECA DE PTS C/ RICOTA",
+        "guarnicao": null,
+        "sobremesa": "MELANCIA"
+      }
+    },
+    {
+      "dia": 2,
+      "dia_semana": "TER",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ALFACE CHUCHU ISCA DE CARNE AO M. INGLES HAMBURGUER DE F. PRETO FAROFA COLORIDA MELÃO",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ALFACE",
+          "CHUCHU"
+        ],
+        "prato_principal": "ISCA DE CARNE AO M. INGLES",
+        "opcao_vegetariana": "HAMBURGUER DE F. PRETO",
+        "guarnicao": "FAROFA COLORIDA",
+        "sobremesa": "MELÃO"
+      }
+    },
+    {
+      "dia": 3,
+      "dia_semana": "QUA",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL PRETO ACELGA BETERRABA FILÉ DE FRANGO ACEBOLADO BOLINHO DE SOJA BERINJELA ASSADA MAÇÃ",
+        "arroz": "BRANCO / INTEGRAL PRETO",
+        "feijao": "ACELGA",
+        "saladas": [
+          "BETERRABA",
+          "FILÉ DE FRANGO ACEBOLADO"
+        ],
+        "prato_principal": "BOLINHO DE SOJA",
+        "opcao_vegetariana": "BERINJELA ASSADA",
+        "guarnicao": null,
+        "sobremesa": "MAÇÃ"
+      }
+    },
+    {
+      "dia": 4,
+      "dia_semana": "QUI",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ALMEIRÃO PEPINO PEIXE NO FUBÁ CHARUTINHO DE ERVILHA ABOBORA C/ MARGARINA BANANA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ALMEIRÃO",
+          "PEPINO"
+        ],
+        "prato_principal": "PEIXE NO FUBÁ",
+        "opcao_vegetariana": "CHARUTINHO DE ERVILHA",
+        "guarnicao": "ABOBORA C/ MARGARINA",
+        "sobremesa": "BANANA"
+      }
+    },
+    {
+      "dia": 5,
+      "dia_semana": "SEX",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA REPOLHO ROXO CEBOLA C/ ORÉGANO (FILÉ) FRANGO A PIZZAIOLO KIBE F. FRADINHO ESCAROLA AO ALHO GOIABA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "REPOLHO ROXO",
+          "CEBOLA C/ ORÉGANO (FILÉ) FRANGO A PIZZAIOLO"
+        ],
+        "prato_principal": "KIBE F. FRADINHO",
+        "opcao_vegetariana": "ESCAROLA AO ALHO",
+        "guarnicao": null,
+        "sobremesa": "GOIABA"
+      }
+    },
+    {
+      "dia": 8,
+      "dia_semana": "SEG",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ACELGA ABOBRINHA BETERRABA ASSADA MAÇÃ TORTA VEGETARIANA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ACELGA",
+          "ABOBRINHA"
+        ],
+        "prato_principal": "Segunda Vegetariana",
+        "opcao_vegetariana": "TORTA VEGETARIANA",
+        "guarnicao": null,
+        "sobremesa": "MAÇÃ"
+      }
+    },
+    {
+      "dia": 9,
+      "dia_semana": "TER",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL PRETO ESCAROLA CENOURA PEIXE AO M. DE LIMÃO ERVILHA A VINAGRETE CHUCHU REFOGADO GOIABA",
+        "arroz": "BRANCO / INTEGRAL PRETO",
+        "feijao": "ESCAROLA",
+        "saladas": [
+          "CENOURA",
+          "PEIXE AO M. DE LIMÃO"
+        ],
+        "prato_principal": "ERVILHA A VINAGRETE",
+        "opcao_vegetariana": "CHUCHU REFOGADO",
+        "guarnicao": null,
+        "sobremesa": "GOIABA"
+      }
+    },
+    {
+      "dia": 10,
+      "dia_semana": "QUA",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ALMEIRÃO BETERRABA STROGONOFF DE FRANGO (ISCA) ALMONDEGA DE F. FRADINHO COUVE REFOGADA MELANCIA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ALMEIRÃO",
+          "BETERRABA"
+        ],
+        "prato_principal": "STROGONOFF DE FRANGO (ISCA)",
+        "opcao_vegetariana": "ALMONDEGA DE F. FRADINHO",
+        "guarnicao": "COUVE REFOGADA",
+        "sobremesa": "MELANCIA"
+      }
+    },
+    {
+      "dia": 11,
+      "dia_semana": "QUI",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ALFACE CHUCHU BIFE AO SUGO STROGONOFF DE PTS BATATA DOCE ASSADA MELÃO",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ALFACE",
+          "CHUCHU"
+        ],
+        "prato_principal": "BIFE AO SUGO",
+        "opcao_vegetariana": "STROGONOFF DE PTS",
+        "guarnicao": "BATATA DOCE ASSADA",
+        "sobremesa": "MELÃO"
+      }
+    },
+    {
+      "dia": 12,
+      "dia_semana": "SEX",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA REPOLHO ROXO PEPINO CUBO DE FRANGO A VINAGRETE HAMBURGUER DE F. PRETO ACELGA REFOGADA BANANA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "REPOLHO ROXO",
+          "PEPINO"
+        ],
+        "prato_principal": "CUBO DE FRANGO A VINAGRETE",
+        "opcao_vegetariana": "HAMBURGUER DE F. PRETO",
+        "guarnicao": "ACELGA REFOGADA",
+        "sobremesa": "BANANA"
+      }
+    },
+    {
+      "dia": 15,
+      "dia_semana": "SEG",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ALMEIRÃO CHUCHU ABOBORA SAUTE MELANCIA HAMBURGUER DE F. PRETO C/ QUEIJO",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ALMEIRÃO",
+          "CHUCHU"
+        ],
+        "prato_principal": "Segunda Vegetariana",
+        "opcao_vegetariana": "HAMBURGUER DE F. PRETO C/ QUEIJO",
+        "guarnicao": null,
+        "sobremesa": "MELANCIA"
+      }
+    },
+    {
+      "dia": 16,
+      "dia_semana": "TER",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ACELGA BETERRABA CARNE MOÍDA AO SUGO F. FRADINHO C/ PIMENTÃO COUVE AO ALHO LARANJA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ACELGA",
+          "BETERRABA"
+        ],
+        "prato_principal": "CARNE MOÍDA AO SUGO",
+        "opcao_vegetariana": "F. FRADINHO C/ PIMENTÃO",
+        "guarnicao": "COUVE AO ALHO",
+        "sobremesa": "LARANJA"
+      }
+    },
+    {
+      "dia": 17,
+      "dia_semana": "QUA",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA REPOLHO ROXO ABOBRINHA ISCA DE FRANGO C/ PIMENTÃO BOLINHO DE PTS CENOURA REFOGADA BANANA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "REPOLHO ROXO",
+          "ABOBRINHA"
+        ],
+        "prato_principal": "ISCA DE FRANGO C/ PIMENTÃO",
+        "opcao_vegetariana": "BOLINHO DE PTS",
+        "guarnicao": "CENOURA REFOGADA",
+        "sobremesa": "BANANA"
+      }
+    },
+    {
+      "dia": 18,
+      "dia_semana": "QUI",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL PRETO ALFACE CENOURA (BIFE) PERNIL AO M. DE LARANJA KIBE DE ERVILHA FAROFA COLORIDA ABACAXI",
+        "arroz": "BRANCO / INTEGRAL PRETO",
+        "feijao": "ALFACE",
+        "saladas": [
+          "CENOURA (BIFE) PERNIL AO M. DE LARANJA",
+          "KIBE DE ERVILHA"
+        ],
+        "prato_principal": "FAROFA COLORIDA",
+        "opcao_vegetariana": "ABACAXI",
+        "guarnicao": null,
+        "sobremesa": "ABACAXI"
+      }
+    },
+    {
+      "dia": 19,
+      "dia_semana": "SEX",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ESCAROLA CEBOLA C/ ORÉGANO PEIXE ASSADO SOJA A VINAGRETE REPOLHO ROXO REFOGADO GOIABA HAMBURGUER DE F. PRETO C/ QUEIJO",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ESCAROLA",
+          "CEBOLA C/ ORÉGANO"
+        ],
+        "prato_principal": "PEIXE ASSADO",
+        "opcao_vegetariana": "SOJA A VINAGRETE",
+        "guarnicao": "REPOLHO ROXO REFOGADO",
+        "sobremesa": "HAMBURGUER DE F. PRETO C/ QUEIJO"
+      }
+    }
+  ],
+  "jantar": [
+    {
+      "dia": 1,
+      "dia_semana": "SEG",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ACELGA ABOBRINHA BETERRABA COZIDA MAÇÃ PANQUECA DE ESPINAFRE C/ RICOTA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ACELGA",
+          "ABOBRINHA"
+        ],
+        "prato_principal": "Segunda Vegetariana",
+        "opcao_vegetariana": "PANQUECA DE ESPINAFRE C/ RICOTA",
+        "guarnicao": null,
+        "sobremesa": "MAÇÃ"
+      }
+    },
+    {
+      "dia": 2,
+      "dia_semana": "TER",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA REPOLHO ROXO PEPINO PEIXE ASSADO BOLINHO DE PTS COUVE AO ALHO GOIABA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "REPOLHO ROXO",
+          "PEPINO"
+        ],
+        "prato_principal": "PEIXE ASSADO",
+        "opcao_vegetariana": "BOLINHO DE PTS",
+        "guarnicao": "COUVE AO ALHO",
+        "sobremesa": "GOIABA"
+      }
+    },
+    {
+      "dia": 3,
+      "dia_semana": "QUA",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL PRETO ESCAROLA CENOURA SUÍNO AO M. DE LIMÃO HAMBURGUER DE LENTILHA MANDIOCA ASSADA MELANCIA",
+        "arroz": "BRANCO / INTEGRAL PRETO",
+        "feijao": "ESCAROLA",
+        "saladas": [
+          "CENOURA",
+          "SUÍNO AO M. DE LIMÃO"
+        ],
+        "prato_principal": "HAMBURGUER DE LENTILHA",
+        "opcao_vegetariana": "MANDIOCA ASSADA",
+        "guarnicao": null,
+        "sobremesa": "MELANCIA"
+      }
+    },
+    {
+      "dia": 4,
+      "dia_semana": "QUI",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ALFACE CHUCHU CUBOS DE FRANGO GRÃO DE BICO ACEBOLADO CENOURA COZIDA MELÃO",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ALFACE",
+          "CHUCHU"
+        ],
+        "prato_principal": "CUBOS DE FRANGO",
+        "opcao_vegetariana": "GRÃO DE BICO ACEBOLADO",
+        "guarnicao": "CENOURA COZIDA",
+        "sobremesa": "MELÃO"
+      }
+    },
+    {
+      "dia": 5,
+      "dia_semana": "SEX",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ALMEIRÃO BETERRABA CARNE MOÍDA ALMONDEGA DE ERVILHA NHOQUE BANANA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ALMEIRÃO",
+          "BETERRABA"
+        ],
+        "prato_principal": "CARNE MOÍDA ALMONDEGA DE ERVILHA",
+        "opcao_vegetariana": "NHOQUE",
+        "guarnicao": null,
+        "sobremesa": "BANANA"
+      }
+    },
+    {
+      "dia": 8,
+      "dia_semana": "SEG",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ALMEIRÃO CENOURA BERINJELA C/ MARGARINA MELANCIA TORTA VEGETARIANA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ALMEIRÃO",
+          "CENOURA"
+        ],
+        "prato_principal": "Segunda Vegetariana",
+        "opcao_vegetariana": "TORTA VEGETARIANA",
+        "guarnicao": null,
+        "sobremesa": "MELANCIA"
+      }
+    },
+    {
+      "dia": 9,
+      "dia_semana": "TER",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL PRETO ALFACE CHUCHU CUBO DE FRANGO AO M. SHOYO BOLINHO DE SOJA ABÓBORA ASSADA MELÃO",
+        "arroz": "BRANCO / INTEGRAL PRETO",
+        "feijao": "ALFACE",
+        "saladas": [
+          "CHUCHU",
+          "CUBO DE FRANGO AO M."
+        ],
+        "prato_principal": "SHOYO",
+        "opcao_vegetariana": "BOLINHO DE SOJA",
+        "guarnicao": "ABÓBORA ASSADA",
+        "sobremesa": "MELÃO"
+      }
+    },
+    {
+      "dia": 10,
+      "dia_semana": "QUA",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ACELGA CEBOLA C/ ORÉGANO CARNE ACEBOLADA HAMBURGUER DE ERVILHA REPOLHO ROXO MAÇÃ",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ACELGA",
+          "CEBOLA C/ ORÉGANO"
+        ],
+        "prato_principal": "CARNE ACEBOLADA",
+        "opcao_vegetariana": "HAMBURGUER DE ERVILHA",
+        "guarnicao": "REPOLHO ROXO",
+        "sobremesa": "MAÇÃ"
+      }
+    },
+    {
+      "dia": 11,
+      "dia_semana": "QUI",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA REPOLHO ROXO ABOBRINHA PEIXE A PORTUGUESA KIBE DE LENTILHA CHUCHU C/ HORTELÃ BANANA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "REPOLHO ROXO",
+          "ABOBRINHA"
+        ],
+        "prato_principal": "PEIXE A PORTUGUESA",
+        "opcao_vegetariana": "KIBE DE LENTILHA",
+        "guarnicao": "CHUCHU C/ HORTELÃ",
+        "sobremesa": "BANANA"
+      }
+    },
+    {
+      "dia": 12,
+      "dia_semana": "SEX",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ESCAROLA BETERRABA FRANGO DESFIADO AO SUGO PTS AO SUGO CREME DE MILHO GOIABA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ESCAROLA",
+          "BETERRABA"
+        ],
+        "prato_principal": "FRANGO DESFIADO AO SUGO",
+        "opcao_vegetariana": "PTS AO SUGO",
+        "guarnicao": "CREME DE MILHO",
+        "sobremesa": "GOIABA"
+      }
+    },
+    {
+      "dia": 15,
+      "dia_semana": "SEG",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ESCAROLA PEPINO REPOLHO ROXO LARANJA CHARUTINHO C/ F. FRADINHO",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ESCAROLA",
+          "PEPINO"
+        ],
+        "prato_principal": "Segunda Vegetariana",
+        "opcao_vegetariana": "CHARUTINHO C/ F. FRADINHO",
+        "guarnicao": null,
+        "sobremesa": "LARANJA"
+      }
+    },
+    {
+      "dia": 16,
+      "dia_semana": "TER",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ALFACE CENOURA CUBOS DE FRANGO AO M. SHOYO KIBE DE ERVILHA ACELGA REFOGADA MELÃO",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ALFACE",
+          "CENOURA"
+        ],
+        "prato_principal": "CUBOS DE FRANGO AO M.",
+        "opcao_vegetariana": "SHOYO",
+        "guarnicao": "KIBE DE ERVILHA",
+        "sobremesa": "MELÃO"
+      }
+    },
+    {
+      "dia": 17,
+      "dia_semana": "QUA",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA ALMEIRÃO CHUCHU PEIXE NO FUBÁ ALMONDEGA DE GRÃO DE BICO BETERRABA C/ SALSÃO GOIABA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "ALMEIRÃO",
+          "CHUCHU"
+        ],
+        "prato_principal": "PEIXE NO FUBÁ",
+        "opcao_vegetariana": "ALMONDEGA DE GRÃO DE BICO",
+        "guarnicao": "BETERRABA C/ SALSÃO",
+        "sobremesa": "GOIABA"
+      }
+    },
+    {
+      "dia": 18,
+      "dia_semana": "QUI",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL PRETO ACELGA BETERRABA STROGONOFF DE FRANGO (ISCA) STROGONOFF DE PTS ABOBRINHA C/ ALECRIM MELANCIA",
+        "arroz": "BRANCO / INTEGRAL PRETO",
+        "feijao": "ACELGA",
+        "saladas": [
+          "BETERRABA",
+          "STROGONOFF DE FRANGO (ISCA)"
+        ],
+        "prato_principal": "STROGONOFF DE PTS",
+        "opcao_vegetariana": "ABOBRINHA C/ ALECRIM",
+        "guarnicao": null,
+        "sobremesa": "MELANCIA"
+      }
+    },
+    {
+      "dia": 19,
+      "dia_semana": "SEX",
+      "itens": {
+        "bruto": "BRANCO / INTEGRAL CARIOCA REPOLHO ABOBRINHA CUBOS DE CARNE HAMBURGUER F. PRETO C/ QUEIJO BATATA ASSADA BANANA CHARUTINHO C/ F. FRADINHO PANQUECA DE ESPINAFRE C/ RICOTA",
+        "arroz": "BRANCO / INTEGRAL",
+        "feijao": "CARIOCA",
+        "saladas": [
+          "REPOLHO",
+          "ABOBRINHA"
+        ],
+        "prato_principal": "CUBOS DE CARNE",
+        "opcao_vegetariana": "HAMBURGUER F. PRETO C/ QUEIJO",
+        "guarnicao": "BATATA ASSADA",
+        "sobremesa": "PANQUECA DE ESPINAFRE C/ RICOTA"
+      }
+    }
+  ]
+}
