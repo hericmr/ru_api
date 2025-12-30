@@ -1,35 +1,39 @@
 # UNIFESP RU API
 
-API desenvolvida em Node.js para extrair e servir o cardápio do Restaurante Universitário da UNIFESP (Campus Santo Amaro - SAN7).
-
-## Funcionalidades
-- Conversão automática de PDF para JSON estruturado.
-- Diferenciação entre prato principal e opção vegetariana.
-- Tratamento especial para a "Segunda Vegetariana".
-- Sistema de cache local para respostas rápidas.
-- Atualização diária automatizada via GitHub Actions.
+API RESTful para consulta do cardápio do Restaurante Universitário da UNIFESP (Campus BS).
 
 ## Endpoints
-- `GET /cardapio`: Retorna todos os dados do mês atual.
-- `GET /cardapio/hoje`: Retorna as refeições (almoço e jantar) do dia vigente.
-- `GET /cardapio/:dia`: Retorna o cardápio de uma data específica.
+
+- `GET /cardapio` - Cardápio completo do mês
+- `GET /cardapio/hoje` - Refeições do dia (almoço e jantar)
+- `GET /cardapio/:dia` - Cardápio de data específica
 
 ## Tecnologias
-- Runner: Node.js
+
+- Runtime: Node.js
 - Framework: Express
 - Parser: pdf-parse
-- Automação: GitHub Actions
+- CI/CD: GitHub Actions
 
-## Instalação e Uso
+## Instalação
+
 ```bash
 npm install
 node src/index.js
 ```
 
-## Automação
-O sistema monitora diariamente a página oficial de cardápios da UNIFESP. Caso um novo PDF seja detectado, o GitHub Actions realiza o download, processa os dados e atualiza o repositório.
+## Atualização
 
-Comando para atualização manual:
+O sistema verifica diariamente novos PDFs na página oficial da UNIFESP e atualiza automaticamente via GitHub Actions.
+
+Atualização manual:
+
 ```bash
 node scripts/update_menu.js
 ```
+
+## Características
+
+- Conversão automática PDF → JSON
+- Cache local para performance
+- Atualização automatizada
