@@ -29,8 +29,21 @@ jobs:
         run: node scripts/update_menu.js
 
       - name: Commit and Push if changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add cardapio.pdf cache/menu.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: atualiza cardápio mensal $(date +%m/%Y)" && git push)
+          
+          # Garante que o remote use o token para permissão de escrita
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
+          
+          git add cardapio.pdf cache/menu.json || true
+          
+          # Verifica se há algo para commitar
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "chore: atualiza cardápio mensal $(date +%m/%Y)"
+            git push origin main
+          else
+            echo "Nenhuma alteração detectada no cardápio."
+          fi
