@@ -17,21 +17,26 @@ const MONTHS = [
 async function updateMenu() {
     try {
         const now = new Date();
-        const currentMonth = MONTHS[now.getMonth()];
-        const currentYear = now.getFullYear();
-        
-        console.log(`Buscando cardápio de ${currentMonth}/${currentYear}...`);
-        console.log(`URL: ${MENU_PAGE_URL}`);
-        
-        const { data: html } = await axios.get(MENU_PAGE_URL);
+        // Usar data de São Paulo para verificação
+        const brazilTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+        const currentMonth = MONTHS[brazilTime.getMonth()];
+        const currentYear = brazilTime.getFullYear();
 
-        // Regex flexível para encontrar o link que contém o mês atual
-        // Ex: "Cardápio - dezembro/2025" ou "Cardápio de Dezembro"
-        const linkRegex = new RegExp(`href="([^"]+\\.pdf)"[^>]*>[^<]*(${currentMonth}|${currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1)})`, 'i');
+        console.log(`🔍 Verificando cardápio de ${currentMonth}/${currentYear}...`);
+
+        const response_html = await axios.get(MENU_PAGE_URL, {
+            headers: { 'User-Agent': 'Mozilla/5.0' }
+        });
+        const html = response_html.data;
+
+        // Regex resiliente: procura .pdf que tenha o nome do mês ou número do mês próximo
+        const monthPattern = `(${currentMonth}|${currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1)})`;
+        const linkRegex = new RegExp(`href="([^"]+\\.pdf)"[^>]*>[^<]*${monthPattern}`, 'i');
+
         const pdfLinkMatch = html.match(linkRegex);
 
         if (!pdfLinkMatch) {
-            console.log(`Ainda não há link para o mês de ${currentMonth}. Verificação diária continuará.`);
+            console.log(`ℹ️ Link para ${currentMonth} ainda não disponível na página.`);
             return;
         }
 
@@ -40,36 +45,37 @@ async function updateMenu() {
             pdfUrl = new URL(pdfUrl, MENU_PAGE_URL).href;
         }
 
-        console.log(`Novo cardápio detectado! Baixando de: ${pdfUrl}`);
-        const response = await axios({
+        console.log(`✅ Novo cardápio encontrado: ${pdfUrl}`);
+
+        const pdfRes = await axios({
             url: pdfUrl,
             method: 'GET',
             responseType: 'arraybuffer'
         });
 
-        const dataBuffer = Buffer.from(response.data);
+        const dataBuffer = Buffer.from(pdfRes.data);
 
-        // Verificar se o arquivo já existe e é igual (evitar commits inúteis)
+        // Verificar integridade e se mudou
         if (fs.existsSync(TARGET_PDF)) {
             const existingBuffer = fs.readFileSync(TARGET_PDF);
             if (existingBuffer.equals(dataBuffer)) {
-                console.log('O cardápio atual já é o mais recente. Nenhuma alteração necessária.');
+                console.log('✨ O arquivo local já está atualizado.');
                 return;
             }
         }
 
         fs.writeFileSync(TARGET_PDF, dataBuffer);
-        console.log('Download concluído e salvo em cardapio.pdf');
+        console.log('📥 Download concluído e salvo.');
 
-        // Limpar cache
+        // Forçar limpeza do cache para que o parser rode no novo PDF
         const cacheFile = path.join(__dirname, '../cache/menu.json');
         if (fs.existsSync(cacheFile)) {
             fs.unlinkSync(cacheFile);
-            console.log('Cache limpo para re-processamento.');
+            console.log('🧹 Cache limpo para atualização.');
         }
 
     } catch (error) {
-        console.error('Erro ao verificar/atualizar cardápio:', error.message);
+        console.error('❌ Erro na automação:', error.message);
         process.exit(1);
     }
 }
