@@ -1,0 +1,4 @@
+node_modules/
+.env
+.DS_Store
+# cache/ # Opcional: mantendo o cache para que a API tenha dados imediatos no deploy
