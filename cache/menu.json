@@ -69,20 +69,6 @@
       }
     },
     {
-      "dia": 3,
-      "dia_semana": "SEX",
-      "itens": {
-        "bruto": "",
-        "arroz": null,
-        "feijao": null,
-        "saladas": [],
-        "prato_principal": null,
-        "opcao_vegetariana": null,
-        "guarnicao": null,
-        "sobremesa": null
-      }
-    },
-    {
       "dia": 6,
       "dia_semana": "SEG",
       "itens": {
@@ -253,34 +239,6 @@
       }
     },
     {
-      "dia": 20,
-      "dia_semana": "SEG",
-      "itens": {
-        "bruto": "",
-        "arroz": null,
-        "feijao": null,
-        "saladas": [],
-        "prato_principal": "Segunda Vegetariana",
-        "opcao_vegetariana": null,
-        "guarnicao": null,
-        "sobremesa": null
-      }
-    },
-    {
-      "dia": 21,
-      "dia_semana": "TER",
-      "itens": {
-        "bruto": "",
-        "arroz": null,
-        "feijao": null,
-        "saladas": [],
-        "prato_principal": null,
-        "opcao_vegetariana": null,
-        "guarnicao": null,
-        "sobremesa": null
-      }
-    },
-    {
       "dia": 22,
       "dia_semana": "QUA",
       "itens": {
@@ -386,7 +344,7 @@
       "dia": 30,
       "dia_semana": "QUI",
       "itens": {
-        "bruto": "BRANCO / INTEGRAL CARIOCA ESCAROLA BETERRABA SOBRECOXA GRÃO DE BICO A VINAGRETE MACARRÃO ALHO E MARGARINA MELÃO NÃO LETIVO FERIADO - TIRADENTES KIBE DE PTS C/ QUEIJO OVO MEXIDO PANQUECA DE PTS TORTA VEGETARIANA FERIADO - PAIXÃO DE CRISTO",
+        "bruto": "BRANCO / INTEGRAL CARIOCA ESCAROLA BETERRABA SOBRECOXA GRÃO DE BICO A VINAGRETE MACARRÃO ALHO E MARGARINA MELÃO KIBE DE PTS C/ QUEIJO OVO MEXIDO PANQUECA DE PTS TORTA VEGETARIANA",
         "arroz": "BRANCO / INTEGRAL",
         "feijao": "CARIOCA",
         "saladas": [
@@ -396,9 +354,11 @@
         "prato_principal": "SOBRECOXA",
         "opcao_vegetariana": "GRÃO DE BICO A VINAGRETE",
         "guarnicao": "MACARRÃO ALHO E MARGARINA",
-        "sobremesa": "FERIADO - PAIXÃO DE CRISTO"
+        "sobremesa": "TORTA VEGETARIANA"
       }
-    },
+    }
+  ],
+  "jantar": [
     {
       "dia": 30,
       "dia_semana": "SEG",
@@ -465,20 +425,6 @@
         "opcao_vegetariana": "BOLINHO DE F. PRETO",
         "guarnicao": "BETERRABA C/ SALSÃO",
         "sobremesa": "MAÇÃ"
-      }
-    },
-    {
-      "dia": 3,
-      "dia_semana": "SEX",
-      "itens": {
-        "bruto": "",
-        "arroz": null,
-        "feijao": null,
-        "saladas": [],
-        "prato_principal": null,
-        "opcao_vegetariana": null,
-        "guarnicao": null,
-        "sobremesa": null
       }
     },
     {
@@ -652,34 +598,6 @@
       }
     },
     {
-      "dia": 20,
-      "dia_semana": "SEG",
-      "itens": {
-        "bruto": "",
-        "arroz": null,
-        "feijao": null,
-        "saladas": [],
-        "prato_principal": "Segunda Vegetariana",
-        "opcao_vegetariana": null,
-        "guarnicao": null,
-        "sobremesa": null
-      }
-    },
-    {
-      "dia": 21,
-      "dia_semana": "TER",
-      "itens": {
-        "bruto": "",
-        "arroz": null,
-        "feijao": null,
-        "saladas": [],
-        "prato_principal": null,
-        "opcao_vegetariana": null,
-        "guarnicao": null,
-        "sobremesa": null
-      }
-    },
-    {
       "dia": 22,
       "dia_semana": "QUA",
       "itens": {
@@ -785,7 +703,7 @@
       "dia": 30,
       "dia_semana": "QUI",
       "itens": {
-        "bruto": "BRANCO / INTEGRAL CARIOCA ACELGA ABOBRINHA ISCA DE CARNE ACEBOLADA ALMONDEGA F. PRETO REPOLHO ROXO REFOGADO MAÇÃ NÃO LETIVO FERIADO - TIRADENTES TORTA VEGETARIANA",
+        "bruto": "BRANCO / INTEGRAL CARIOCA ACELGA ABOBRINHA ISCA DE CARNE ACEBOLADA ALMONDEGA F. PRETO REPOLHO ROXO REFOGADO MAÇÃ TORTA VEGETARIANA OVO COZIDO COM AZEITE E ORÉGANO PANQUECA DE ESPINAFRE C/ RICOTA KIBE DE PTS C/ QUEIJO",
         "arroz": "BRANCO / INTEGRAL",
         "feijao": "CARIOCA",
         "saladas": [
@@ -795,9 +713,8 @@
         "prato_principal": "ISCA DE CARNE ACEBOLADA",
         "opcao_vegetariana": "ALMONDEGA F. PRETO",
         "guarnicao": "REPOLHO ROXO REFOGADO",
-        "sobremesa": "TORTA VEGETARIANA"
+        "sobremesa": "KIBE DE PTS C/ QUEIJO"
       }
     }
-  ],
-  "jantar": []
+  ]
 }

@@ -4,91 +4,138 @@ import { PDFParse } from 'pdf-parse';
 export function parseMenuText(text) {
     const menu = { almoco: [], jantar: [] };
 
-    // Detectar o mês dinamicamente (primeira palavra após "ALMOÇO" ou "JANTAR")
-    const monthMatch = text.match(/(?:ALMOÇO|JANTAR)\s+([A-ZÇÃ]+)\b/i);
-    const monthName = monthMatch ? monthMatch[1].toUpperCase() : '';
+    // Detectar blocos de Almoço e Jantar de forma mais resiliente
+    // Procuramos pelas palavras ALMOÇO e JANTAR seguidas do mês/ano
+    const almocoMatch = text.match(/ALMOÇO\s+([A-ZÇÃ]+)\s*[–-]?\s*(\d{4})/i);
+    const jantarMatch = text.match(/JANTAR\s+([A-ZÇÃ]+)\s*[–-]?\s*(\d{4})/i);
 
-    // Divide em blocos começando com "1 SEG" ou similar
-    const blocks = text.split(/(?=\d+\s+(?:SEG|TER|QUA|QUI|SEX|SÁB|DOM))/).filter(b => b.trim().length > 50);
+    const almocoMonth = almocoMatch ? almocoMatch[1].toUpperCase() : '';
+    const jantarMonth = jantarMatch ? jantarMatch[1].toUpperCase() : '';
 
-    // Na UNIFESP, geralmente o PDF tem Almoço em algumas páginas e Jantar em outras.
-    // O PDFParse junta tudo. Vamos separar pelo cabeçalho.
-    const sections = text.split(/(?=JANTAR\s+[A-ZÇÃ]+)/i);
-    let almocoText = sections[0] || '';
-    let jantarText = sections[1] || '';
+    // 1. Tentar dividir por "DATA||" (comum no cardápio de Santos)
+    const sections = text.split(/DATA\s*\|\|/i).filter(s => s.toLowerCase().includes('arroz'));
+    
+    let almocoContent = '';
+    let jantarContent = '';
 
-    menu.almoco = processSection(almocoText, 'ALMOÇO', monthName);
-    menu.jantar = processSection(jantarText, 'JANTAR', monthName);
+    if (sections.length >= 2) {
+        // Se temos duas ou mais seções com header, a primeira é Almoço e as subsequentes Jantar
+        // ou se for um PDF de 2 páginas, pode ser 1 página Almoço e 1 Jantar
+        almocoContent = sections[0];
+        // Junta o resto como Jantar (caso Jantar tenha mais páginas)
+        jantarContent = sections.slice(1).join(' ');
+    } else {
+        // 2. Fallback: Tentar dividir por marcadores de página ou palavras-chave
+        const pageSplit = text.split(/-- \d+ of \d+ --/);
+        if (pageSplit.length >= 2) {
+            almocoContent = pageSplit[0];
+            jantarContent = pageSplit.slice(1).join(' ');
+        } else {
+            // 3. Fallback final: Procurar por JANTAR
+            const jantarIdx = text.search(/JANTAR/i);
+            if (jantarIdx !== -1) {
+                almocoContent = text.substring(0, jantarIdx);
+                jantarContent = text.substring(jantarIdx);
+            } else {
+                almocoContent = text;
+            }
+        }
+    }
 
-    return menu;
+    menu.almoco = processSection(almocoContent, 'ALMOÇO', almocoMonth);
+    menu.jantar = processSection(jantarContent, 'JANTAR', jantarMonth);
+
+    // Mover itens flutuantes para uma propriedade global se encontrados
+    if (menu.almoco.floating) {
+        menu.almoco_extras = menu.almoco.floating;
+        delete menu.almoco.floating;
+    }
+    if (menu.jantar.floating) {
+        menu.jantar_extras = menu.jantar.floating;
+        delete menu.jantar.floating;
+    }
+
+    // Achatar para arrays simples (compatibilidade com frontend)
+    const result = {
+        almoco: menu.almoco.days || [],
+        jantar: menu.jantar.days || [],
+        almoco_extras: menu.almoco_extras || [],
+        jantar_extras: menu.jantar_extras || []
+    };
+
+    return result;
 }
 
 function processSection(sectionText, sectionName, monthName) {
-    const days = [];
-    if (!sectionText) return days;
+    const result = { days: [], floating: [] };
+    if (!sectionText || sectionText.length < 50) return result;
 
-    // Split por dia (ex: 1 SEG, 10 TER)
-    const dayParts = sectionText.split(/(\d+\s+(?:SEG|TER|QUA|QUI|SEX|SÁB|DOM))/);
+    // Limpeza de ruídos
+    let cleanText = sectionText
+        .replace(/-- \d+ of \d+ --/g, '')
+        .replace(/DATA\|\|/gi, '');
 
-    for (let j = 1; j < dayParts.length; j += 2) {
-        const dayHeader = dayParts[j].trim();
-        let dayContent = dayParts[j + 1].trim();
+    // Split por dia (ex: 1 SEG, 10 TER, 01 QUA)
+    const dayParts = cleanText.split(/(\d{1,2})\s+(SEG|TER|QUA|QUI|SEX|SÁB|DOM)\b/i);
 
-        // Limpeza básica: remover cabeçalhos de página repetidos
-        if (monthName) {
-            const monthRegex = new RegExp(`(?:ALMOÇO|JANTAR)\\s+${monthName}.*?\\d{4}`, 'gi');
-            dayContent = dayContent.replace(monthRegex, '');
+    // Itens flutuantes (muitas vezes PVs ou Substitutos no final do PDF)
+    const tailText = dayParts[dayParts.length - 1] || '';
+    result.floating = tailText.split(/[|]+/)
+        .map(p => p.trim())
+        .filter(p => p.length > 5 && 
+                    !/ALMOÇO|JANTAR|DATA|ARROZ|FEIJÃO|SALADA|PRATO|GUARNIÇÃO|SOBREMESA/i.test(p) &&
+                    !/^\d+$/.test(p) &&
+                    !/FERIADO|NÃO LETIVO|RECESSO/i.test(p));
+
+    for (let j = 1; j < dayParts.length; j += 3) {
+        const dayNum = parseInt(dayParts[j]);
+        const dayName = dayParts[j + 1].toUpperCase();
+        let dayContent = dayParts[j + 2].trim();
+
+        const parsedItens = parseItems(dayContent, dayName);
+
+        // Se o bruto for muito curto (provável feriado ou dia vazio)
+        if (parsedItens.bruto.length < 10) {
+            const holidayRegex = /FERIADO|NÃO\s*LETIVO|RECESSO|PONTE/i;
+            const isNoisy = dayContent.length < 15 || /^[|\s]*$/.test(dayContent);
+            
+            if (holidayRegex.test(dayContent) || (isNoisy && holidayRegex.test(tailText))) {
+                 result.days.push({ 
+                     dia: dayNum, 
+                     dia_semana: dayName, 
+                     status: "FERIADO/NÃO LETIVO", 
+                     itens: null 
+                 });
+            }
+            continue;
         }
-        dayContent = dayContent.split(/-- \d+ of \d+ --/)[0].trim();
 
-        const [dayNum, dayName] = dayHeader.split(/\s+/);
-        days.push({
-            dia: parseInt(dayNum),
+        result.days.push({
+            dia: dayNum,
             dia_semana: dayName,
-            itens: parseItems(dayContent, dayName)
+            itens: parsedItens
         });
     }
 
-    // Correções específicas de pratos (Mantendo o que já existia para Dezembro, mas flexível)
-    if (monthName === 'DEZEMBRO') {
-        const segundas = days.filter(d => d.dia_semana === 'SEG');
-        const missingDishes = {
-            'ALMOÇO': {
-                1: 'PANQUECA DE PTS C/ RICOTA',
-                8: 'TORTA VEGETARIANA',
-                15: 'HAMBURGUER DE F. PRETO C/ QUEIJO'
-            },
-            'JANTAR': {
-                1: 'PANQUECA DE ESPINAFRE C/ RICOTA',
-                8: 'TORTA VEGETARIANA',
-                15: 'CHARUTINHO C/ F. FRADINHO'
-            }
-        };
-
-        segundas.forEach(seg => {
-            const fixedDish = missingDishes[sectionName]?.[seg.dia];
-            if (fixedDish) {
-                seg.itens.opcao_vegetariana = fixedDish;
-                if (!seg.itens.bruto.includes(fixedDish)) {
-                    seg.itens.bruto += ' ' + fixedDish;
-                }
-            }
-        });
-    }
-
-    return days;
+    return result;
 }
 
 function parseItems(content, diaSemana) {
-    // Normalizar separadores (às vezes o PDF usa múltiplos espaços ou pipes)
-    let rawParts = content.split(/[|]{2,}/).map(p => p.trim()).filter(p => {
-        return p.length > 0 && !(/^\d+$/.test(p) && p.length < 3);
-    });
+    // Limpar o conteúdo de restos de headers e pipes extras
+    let rawParts = content.split(/[|]+/)
+        .map(p => p.trim())
+        .filter(p => {
+            return p.length > 0 && 
+                   !/^(ARROZ|FEIJÃO|SALADA|PRATO|GUARNIÇÃO|SOBREMESA|DATA|DATA\s*\|\|)$/i.test(p) &&
+                   !/^\d+$/.test(p) &&
+                   !/ALMOÇO|JANTAR/i.test(p);
+        });
 
     const joinTermsSuffix = [
         'INTEGRAL', 'ROXO', 'PRETO', 'ACEBOLADO', 'REFOGADA', 'REFOGADO', 'ASSADA', 'ASSADO',
         'AO M.', 'C/ MARGARINA', 'C/ QUEIJO', 'AO ALHO', 'AO SUGO', 'C/ PIMENTÃO', 'A VINAGRETE',
-        'FRADINHO', 'COZIDA', 'COZIDO', 'PIZZAIOLO', 'M. INGLES', 'M. DE LIMÃO'
+        'FRADINHO', 'COZIDA', 'COZIDO', 'PIZZAIOLO', 'M. INGLES', 'M. INGLÊS', 'M. DE LIMÃO', 'M. BARBECUE', 'SHOYO',
+        'NA MANTEIGA', 'AO BARBECUE', 'A PORTUGUESA', 'COM SALSÃO', 'C/ SALSÃO', 'AO SUGO', 'C/ HORTELÃ', 'SAUTE'
     ];
 
     let parts = [];
@@ -97,10 +144,11 @@ function parseItems(content, diaSemana) {
         const last = parts[parts.length - 1];
         let shouldJoin = false;
 
-        // Regras de concatenação para pratos que o PDF divide em linhas/blocos errados
-        if (part.startsWith('(') || joinTermsSuffix.some(term => part.startsWith(term))) shouldJoin = true;
-        else if (last.endsWith('C/') || last.endsWith('/') ||
-            /\b(DE|AO|A|NO|NA|DO|DA|DOS|DAS)$/i.test(last)) shouldJoin = true;
+        if (part.startsWith('(') || joinTermsSuffix.some(term => part.toUpperCase().startsWith(term))) shouldJoin = true;
+        else if (last.endsWith('/') || last.endsWith('C/') || last.endsWith('M.') ||
+            /\b(DE|AO|A|NO|NA|DO|DA|DOS|DAS|COM|C\/|E|AO M\.)$/i.test(last)) shouldJoin = true;
+        
+        if (last === 'BRANCO /' && part.toUpperCase() === 'INTEGRAL') shouldJoin = true;
 
         if (shouldJoin) parts[parts.length - 1] += ' ' + part;
         else parts.push(part);
@@ -108,25 +156,61 @@ function parseItems(content, diaSemana) {
 
     const itens = {
         bruto: parts.join(' '),
-        arroz: parts[0] || null,
-        feijao: parts[1] || null,
-        saladas: parts.slice(2, 4),
+        arroz: null,
+        feijao: null,
+        saladas: [],
         prato_principal: null,
         opcao_vegetariana: null,
         guarnicao: null,
-        sobremesa: parts[parts.length - 1] || null
+        sobremesa: null
     };
 
-    // Lógica de atribuição baseada na posição (pode variar se o PDF mudar muito)
+    // Atribuição resiliente: tentamos mapear os itens baseado no número de colunas
+    // Padrão completo: Rice, Bean, Salad1, Salad2, PP, PV, Guarnicao, Sobremesa (8 items)
+    
     if (diaSemana === 'SEG') {
         itens.prato_principal = "Segunda Vegetariana";
-        itens.opcao_vegetariana = parts[4] || null;
-        if (parts.length > 6) itens.guarnicao = parts[parts.length - 2];
+        itens.arroz = parts[0] || null;
+        itens.feijao = parts[1] || null;
+        itens.saladas = parts.slice(2, 4);
+        
+        if (parts.length === 5) { // Arroz, Feijao, Salad1, PV, Sobremesa
+            itens.saladas = [parts[2]];
+            itens.opcao_vegetariana = parts[3];
+            itens.sobremesa = parts[4];
+        } else if (parts.length === 6) { // Arroz, Feijao, Salad1, Salad2, PV, Sobremesa
+            itens.opcao_vegetariana = parts[4];
+            itens.sobremesa = parts[5];
+        } else if (parts.length >= 7) {
+            itens.opcao_vegetariana = parts[4];
+            itens.guarnicao = parts[5];
+            itens.sobremesa = parts[parts.length - 1];
+        }
     } else {
-        itens.prato_principal = parts[4] || null;
-        itens.opcao_vegetariana = parts[5] || null;
-        let pG = parts[6] || null;
-        if (pG && pG !== itens.sobremesa) itens.guarnicao = pG;
+        itens.arroz = parts[0] || null;
+        itens.feijao = parts[1] || null;
+        itens.saladas = parts.slice(2, 4);
+        
+        if (parts.length === 5) { // Arroz, Feijao, Salad1, PP+PV?, Sobremesa
+            itens.prato_principal = parts[2];
+            itens.opcao_vegetariana = parts[3];
+            itens.sobremesa = parts[4];
+            itens.saladas = [];
+        } else if (parts.length === 6) {
+            itens.prato_principal = parts[3];
+            itens.opcao_vegetariana = parts[4];
+            itens.sobremesa = parts[5];
+            itens.saladas = [parts[2]];
+        } else if (parts.length === 7) {
+            itens.prato_principal = parts[4];
+            itens.opcao_vegetariana = parts[5];
+            itens.sobremesa = parts[6];
+        } else if (parts.length >= 8) {
+            itens.prato_principal = parts[4];
+            itens.opcao_vegetariana = parts[5];
+            itens.guarnicao = parts[6];
+            itens.sobremesa = parts[parts.length - 1];
+        }
     }
     return itens;
 }

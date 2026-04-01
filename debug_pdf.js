@@ -1,11 +1,18 @@
 import fs from 'fs';
 import { PDFParse } from 'pdf-parse';
 
-async function debug() {
-    const dataBuffer = fs.readFileSync('cardapio.pdf');
-    const pdfParser = new PDFParse({ data: dataBuffer });
-    const data = await pdfParser.getText({ itemJoiner: '||' });
-    console.log(data.text);
+async function debugPdf(filePath) {
+    const dataBuffer = fs.readFileSync(filePath);
+    try {
+        const pdfParser = new PDFParse({ data: dataBuffer });
+        const data = await pdfParser.getText({ itemJoiner: '||' });
+        console.log("--- RAW TEXT ---");
+        console.log(data.text);
+        console.log("--- END RAW TEXT ---");
+    } catch (err) {
+        console.error("Error parsing PDF:", err);
+    }
 }
 
-debug();
+const file = process.argv[2] || 'cardapio.pdf';
+debugPdf(file);
