@@ -84,6 +84,7 @@ function processSection(sectionText, sectionName, monthName) {
         .map(p => p.trim())
         .filter(p => p.length > 5 && 
                     !/ALMOÇO|JANTAR|DATA|ARROZ|FEIJÃO|SALADA|PRATO|GUARNIÇÃO|SOBREMESA/i.test(p) &&
+                    !/BRANCO|INTEGRAL|CARIOCA|PRETO/i.test(p) &&
                     !/^\d+$/.test(p) &&
                     !/FERIADO|NÃO LETIVO|RECESSO/i.test(p));
 
@@ -114,6 +115,28 @@ function processSection(sectionText, sectionName, monthName) {
             dia: dayNum,
             dia_semana: dayName,
             itens: parsedItens
+        });
+    }
+
+    // Pós-processamento para segundas-feiras (mapear itens flutuantes se faltarem)
+    const mondays = result.days.filter(d => d.dia_semana === 'SEG' && d.itens);
+    // Filtrar itens flutuantes que pareçam PVs (geralmente contêm PTS, VEGETARIANO, BOLINHO, KIBE, OVO, PANQUECA)
+    const possiblePVs = result.floating.filter(item => 
+        /PTS|VEGET|BOLINHO|KIBE|OVO|PANQUECA|TORTA|GRÃO|LENTILHA/i.test(item)
+    );
+
+    if (mondays.length > 0 && possiblePVs.length > 0) {
+        mondays.forEach((monday, idx) => {
+            // Se na nossa análise o PV ficou nulo ou parece ser a guarnição, tentamos usar o floating
+            const itens = monday.itens;
+            if (possiblePVs[idx]) {
+                // Se temos um item flutuante para esta segunda, ele assume o lugar do PV
+                // Se já tínhamos algo no lugar do PV que parece guarnição, movemos para guarnição
+                if (itens.opcao_vegetariana && !itens.guarnicao) {
+                    itens.guarnicao = itens.opcao_vegetariana;
+                }
+                itens.opcao_vegetariana = possiblePVs[idx];
+            }
         });
     }
 
@@ -174,7 +197,10 @@ function parseItems(content, diaSemana) {
         itens.feijao = parts[1] || null;
         itens.saladas = parts.slice(2, 4);
         
-        if (parts.length === 5) { // Arroz, Feijao, Salad1, PV, Sobremesa
+        if (parts.length === 4) { // Arroz, Feijao, Salad1, Sobremesa?
+            itens.saladas = [parts[2]];
+            itens.sobremesa = parts[3];
+        } else if (parts.length === 5) { // Arroz, Feijao, Salad1, PV, Sobremesa
             itens.saladas = [parts[2]];
             itens.opcao_vegetariana = parts[3];
             itens.sobremesa = parts[4];
